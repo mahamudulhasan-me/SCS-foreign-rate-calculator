@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
 
-const CarriersInput = () => {
+const CarriersInput = ({ setCarrier }) => {
   const [carriers, setCarriers] = useState([]);
   useEffect(() => {
     fetchGetCarriers()
@@ -15,9 +15,9 @@ const CarriersInput = () => {
       .catch((err) => console.log("err", err));
   }, []);
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <FormControl className="w-full">
       <InputLabel>Carrier</InputLabel>
-      <Select label="Carrier">
+      <Select label="Carrier" onChange={(e) => setCarrier(e.target.value)}>
         {carriers.map((service) => (
           <MenuItem key={service.name} value={service.name}>
             {service.name}

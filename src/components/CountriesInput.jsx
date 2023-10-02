@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
-const CountriesInput = () => {
+const CountriesInput = ({ setCountry }) => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -15,9 +15,9 @@ const CountriesInput = () => {
       .catch((err) => console.log("err", err));
   }, []);
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
-      <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-      <Select label="Country">
+    <FormControl className="w-full">
+      <InputLabel >Country</InputLabel>
+      <Select label="Country" onChange={(e) => setCountry(e.target.value)}>
         {countries.map((country) => (
           <MenuItem key={country.name} value={country.name}>
             {country.name}

@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
 
-const ServicesInput = () => {
+const ServicesInput = ({ setService }) => {
   const [services, setServices] = useState([]);
   useEffect(() => {
     fetchGetServices()
@@ -15,9 +15,9 @@ const ServicesInput = () => {
       .catch((err) => console.log("err", err));
   }, []);
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <FormControl className="w-full">
       <InputLabel>Service</InputLabel>
-      <Select label="Service">
+      <Select label="Service" onChange={(e) => setService(e.target.value)}>
         {services.map((service) => (
           <MenuItem key={service.name} value={service.name}>
             {service.name}

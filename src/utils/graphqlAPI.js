@@ -53,6 +53,28 @@ const carriersQuery = {
   query: `query GetCarriers ${GetCarriers}`,
   variables: {},
 };
+
+// calculate rate
+
+const GetRate = `($country: String!, $service: String!, $carrier: String!, $weight: Float!) {
+  getRate(country: $country, service: $service, carrier: $carrier, weight: $weight) {
+    result
+  }
+}`;
+
+export const fetchGetCalculateRate = (variables) => {
+  const response = axios({
+    url: endPoint,
+    method: "post",
+    data: {
+      operationName: "GetRate",
+      query: `query GetRate ${GetRate}`,
+      variables,
+    },
+    headers: headers,
+  });
+  return response;
+};
 export const fetchGetCountriesName = () => {
   const response = axios({
     url: endPoint,
