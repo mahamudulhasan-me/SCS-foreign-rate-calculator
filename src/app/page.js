@@ -1,20 +1,33 @@
 "use client";
+
 import CarriersInput from "@/components/CarriersInput";
 import CountriesInput from "@/components/CountriesInput";
 import ServicesInput from "@/components/ServicesInput";
 import { fetchGetCalculateRate } from "@/utils/graphqlAPI";
 import { FormHelperText, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const HomePage = () => {
   const [country, setCountry] = useState("");
   const [service, setService] = useState("");
   const [carrier, setCarrier] = useState("");
   const [weight, setWeight] = useState("");
   const [dataVariables, setDataVariables] = useState({});
-  const [rate, setRate] = useState(null);
+  const [rate, setRate] = useState(0);
 
   const calculateRate = () => {
-    setDataVariables({ country, service, carrier, weight: parseFloat(weight) });
+    if (country && service && carrier && weight) {
+      setDataVariables({
+        country,
+        service,
+        carrier,
+        weight: parseFloat(weight),
+      });
+    } else {
+      toast.warning("Please fill all the fields", {
+        position: "top-center",
+      });
+    }
   };
 
   useEffect(() => {
@@ -27,7 +40,7 @@ const HomePage = () => {
 
   console.log(rate);
   return (
-    <div className="w-4/5 mx-auto text-center mt-10 text-gray-700">
+    <div className="px-[10%] h-[calc(100vh-4.2rem)] z-20 mx-auto text-center pt-10 text-gray-700 ">
       <h2 className="text-3xl font-bold ">International Coverage</h2>
       <p>
         You can calculate the international rate of the Sundarban Courier
@@ -39,6 +52,7 @@ const HomePage = () => {
         <ServicesInput setService={setService} />
 
         <CarriersInput setCarrier={setCarrier} />
+
         <div className="w-full">
           <TextField
             onChange={(e) => setWeight(e.target.value)}
@@ -50,17 +64,20 @@ const HomePage = () => {
         </div>
       </div>
 
-      <p
-        className={`text-2xl  font-semibold  ${
-          rate ? "text-orange-500" : "text-transparent"
-        }`}
-      >
-        Rate: {rate} Taka
-      </p>
+      {rate === null && (
+        <p className="text-rose-600 font-semibold text-2xl">
+          This Service is not available
+        </p>
+      )}
+      {rate > 0 && (
+        <p className="text-orange-500 font-semibold text-2xl">
+          Rate: {rate} Taka
+        </p>
+      )}
 
       <div>
         <button
-          className="bg-[#1976D2] text-lg px-8 py-3 rounded-md text-white mt-5"
+          className="bg-[#1976D2] text-lg px-10 py-3 rounded-md text-white mt-5"
           onClick={calculateRate}
         >
           Calculate

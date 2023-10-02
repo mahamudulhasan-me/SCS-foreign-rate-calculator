@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -12,9 +13,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className="bg-cover bg-center bg-no-repeat bg-white  bg-blend-overlay bg-opacity-90"
+        style={{ backgroundImage: `url(./home-bg.jpg)` }}
+      >
         <Header />
         {children}
+        <ToastContainer />
       </body>
     </html>
   );
