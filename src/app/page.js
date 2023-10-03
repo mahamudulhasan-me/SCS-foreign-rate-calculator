@@ -42,60 +42,66 @@ const HomePage = () => {
   }, [dataVariables]);
 
   return (
-    <div className="md:px-[10%] px-[5%] h-[calc(100vh-4.2rem)] z-20 mx-auto text-center pt-10 text-gray-700 ">
-      <h2 className="text-3xl font-bold ">International Coverage</h2>
-      <p>
-        You can calculate the Sundarban Courier Service (Pvt.) Ltd.
-        international rate here.
-      </p>
+    <div className="md:px-[10%] px-[5%] min-h-[calc(100vh-4.2rem)] z-20 mx-auto text-center pt-10 text-gray-700 flex flex-col justify-between">
+      <main>
+        <h2 className="text-3xl font-bold ">International Coverage</h2>
+        <p>
+          You can calculate the Sundarban Courier Service (Pvt.) Ltd.
+          international rate here.
+        </p>
 
-      {/* input group start */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between items-start md:gap-10 gap-5 my-8">
-        <CountriesInput setCountry={setCountry} />
+        {/* input group start */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between items-start md:gap-10 gap-5 my-8">
+          <CountriesInput setCountry={setCountry} />
 
-        <ServicesInput setService={setService} />
+          <ServicesInput setService={setService} />
 
-        <CarriersInput setCarrier={setCarrier} />
+          <CarriersInput setCarrier={setCarrier} />
 
-        <div className="w-full">
-          <TextField
-            className="w-full"
-            onChange={(e) => setWeight(e.target.value)}
-            label="Weight"
-            variant="outlined"
-            type="number"
-            // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          />
-          <FormHelperText className="ml-3">*weight in kilograms</FormHelperText>
+          <div className="w-full">
+            <TextField
+              className="w-full"
+              onChange={(e) => setWeight(e.target.value)}
+              label="Weight"
+              variant="outlined"
+              type="number"
+              // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            />
+            <FormHelperText className="ml-3">
+              *weight in kilograms
+            </FormHelperText>
+          </div>
         </div>
-      </div>
-      {/* input group end */}
+        {/* input group end */}
 
-      {(rate === null || rate === 0) && (
-        <p className="text-rose-600 font-semibold text-2xl">
-          This Service is not available
-        </p>
-      )}
-      {rate > 0 && (
-        <p className="text-orange-500 font-semibold text-2xl">
-          Rate: {rate} Taka
-        </p>
-      )}
+        {(rate === null || rate === 0) && (
+          <p className="text-rose-600 font-semibold text-2xl">
+            This Service is not available
+          </p>
+        )}
+        {rate > 0 && (
+          <p className="text-orange-500 font-semibold text-2xl">
+            Rate: {rate} BDT
+          </p>
+        )}
 
-      <div>
-        <button
-          className="bg-[#1976D2] text-lg px-10 py-3 rounded-md text-white mt-5"
-          onClick={calculateRate}
-        >
-          Calculate
-        </button>
-      </div>
-      <p className="text-sm absolute bottom-10 left-10 right-10">
-        *Rates can be changed depending on currency conversion rate and fuel
-        price. Please contact our customer service at{" "}
-        <span className="text-blue-600 hover:underline">09612003003</span> for
-        more information
-      </p>
+        <div>
+          <button
+            className="bg-[#1976D2] text-lg px-10 py-3 rounded-md text-white mt-5"
+            onClick={calculateRate}
+          >
+            Calculate
+          </button>
+        </div>
+      </main>
+      <footer>
+        <p className="text-sm mb-5">
+          *Rates can be changed depending on currency conversion rate and fuel
+          price. Please contact our customer service at{" "}
+          <span className="text-blue-600 hover:underline">09612003003</span> for
+          more information
+        </p>
+      </footer>
     </div>
   );
 };
