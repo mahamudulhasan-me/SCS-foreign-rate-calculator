@@ -6,7 +6,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-// get countries query
+// ------------------Get Countries Operation------------------------
 const GetCountries = `{
   getCountries {
     result {
@@ -21,8 +21,17 @@ const countryQuery = {
   query: `query GetCountries ${GetCountries}`,
   variables: {},
 };
+export const fetchGetCountriesName = () => {
+  const response = axios({
+    url: endPoint,
+    method: "post",
+    data: countryQuery,
+    headers: headers,
+  });
+  return response;
+};
 
-// get Service Query
+// ------------------Get Services Operation------------------------
 const GetServices = `{
   getServices {
     result {
@@ -37,8 +46,17 @@ const serviceQuery = {
   query: `query GetServices ${GetServices}`,
   variables: {},
 };
+export const fetchGetServices = () => {
+  const response = axios({
+    url: endPoint,
+    method: "post",
+    data: serviceQuery,
+    headers: headers,
+  });
+  return response;
+};
 
-// get carrier Query
+// ------------------Get Carriers Operation------------------------
 const GetCarriers = ` {
   getCarriers {
     result {
@@ -53,9 +71,17 @@ const carriersQuery = {
   query: `query GetCarriers ${GetCarriers}`,
   variables: {},
 };
+export const fetchGetCarriers = () => {
+  const response = axios({
+    url: endPoint,
+    method: "post",
+    data: carriersQuery,
+    headers: headers,
+  });
+  return response;
+};
 
-// calculate rate
-
+// ------------------Get Rate Operation------------------------
 const GetRate = `($country: String!, $service: String!, $carrier: String!, $weight: Float!) {
   getRate(country: $country, service: $service, carrier: $carrier, weight: $weight) {
     result
@@ -71,33 +97,6 @@ export const fetchGetCalculateRate = (variables) => {
       query: `query GetRate ${GetRate}`,
       variables,
     },
-    headers: headers,
-  });
-  return response;
-};
-export const fetchGetCountriesName = () => {
-  const response = axios({
-    url: endPoint,
-    method: "post",
-    data: countryQuery,
-    headers: headers,
-  });
-  return response;
-};
-export const fetchGetServices = () => {
-  const response = axios({
-    url: endPoint,
-    method: "post",
-    data: serviceQuery,
-    headers: headers,
-  });
-  return response;
-};
-export const fetchGetCarriers = () => {
-  const response = axios({
-    url: endPoint,
-    method: "post",
-    data: carriersQuery,
     headers: headers,
   });
   return response;

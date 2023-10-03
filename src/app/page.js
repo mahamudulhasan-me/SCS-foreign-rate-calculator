@@ -7,14 +7,16 @@ import { fetchGetCalculateRate } from "@/utils/graphqlAPI";
 import { FormHelperText, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+
 const HomePage = () => {
   const [country, setCountry] = useState("");
   const [service, setService] = useState("");
   const [carrier, setCarrier] = useState("");
   const [weight, setWeight] = useState("");
   const [dataVariables, setDataVariables] = useState({});
-  const [rate, setRate] = useState(0);
+  const [rate, setRate] = useState(-1);
 
+  // calculate rate handler
   const calculateRate = () => {
     if (country && service && carrier && weight) {
       setDataVariables({
@@ -30,6 +32,7 @@ const HomePage = () => {
     }
   };
 
+  // post rate variables
   useEffect(() => {
     fetchGetCalculateRate(dataVariables)
       .then((res) => {
@@ -38,15 +41,16 @@ const HomePage = () => {
       .catch((err) => console.log("err", err));
   }, [dataVariables]);
 
-  console.log(rate);
   return (
-    <div className="px-[10%] h-[calc(100vh-4.2rem)] z-20 mx-auto text-center pt-10 text-gray-700 ">
+    <div className="md:px-[10%] px-[5%] h-[calc(100vh-4.2rem)] z-20 mx-auto text-center pt-10 text-gray-700 ">
       <h2 className="text-3xl font-bold ">International Coverage</h2>
       <p>
-        You can calculate the international rate of the Sundarban Courier
-        Service (Pvt.) Ltd. here
+        You can calculate the Sundarban Courier Service (Pvt.) Ltd.
+        international rate here.
       </p>
-      <div className="flex justify-between items-start gap-10 my-8">
+
+      {/* input group start */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between items-start md:gap-10 gap-5 my-8">
         <CountriesInput setCountry={setCountry} />
 
         <ServicesInput setService={setService} />
@@ -55,16 +59,19 @@ const HomePage = () => {
 
         <div className="w-full">
           <TextField
+            className="w-full"
             onChange={(e) => setWeight(e.target.value)}
             label="Weight"
             variant="outlined"
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            type="number"
+            // inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
           />
           <FormHelperText className="ml-3">*weight in kilograms</FormHelperText>
         </div>
       </div>
+      {/* input group end */}
 
-      {rate === null && (
+      {(rate === null || rate === 0) && (
         <p className="text-rose-600 font-semibold text-2xl">
           This Service is not available
         </p>

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 const CarriersInput = ({ setCarrier }) => {
   const [carriers, setCarriers] = useState([]);
+
   useEffect(() => {
     fetchGetCarriers()
       .then((res) => {
@@ -14,6 +15,7 @@ const CarriersInput = ({ setCarrier }) => {
       })
       .catch((err) => console.log("err", err));
   }, []);
+
   return (
     <FormControl className="w-full">
       <InputLabel>Carrier</InputLabel>

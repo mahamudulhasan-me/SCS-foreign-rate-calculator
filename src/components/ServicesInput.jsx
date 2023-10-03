@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 const ServicesInput = ({ setService }) => {
   const [services, setServices] = useState([]);
+
   useEffect(() => {
     fetchGetServices()
       .then((res) => {
@@ -14,6 +15,7 @@ const ServicesInput = ({ setService }) => {
       })
       .catch((err) => console.log("err", err));
   }, []);
+
   return (
     <FormControl className="w-full">
       <InputLabel>Service</InputLabel>

@@ -14,9 +14,10 @@ const CountriesInput = ({ setCountry }) => {
       })
       .catch((err) => console.log("err", err));
   }, []);
+
   return (
     <FormControl className="w-full">
-      <InputLabel >Country</InputLabel>
+      <InputLabel>Country</InputLabel>
       <Select label="Country" onChange={(e) => setCountry(e.target.value)}>
         {countries.map((country) => (
           <MenuItem key={country.name} value={country.name}>
