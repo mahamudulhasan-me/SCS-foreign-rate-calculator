@@ -4,7 +4,7 @@ import CarriersInput from "@/components/CarriersInput";
 import CountriesInput from "@/components/CountriesInput";
 import ServicesInput from "@/components/ServicesInput";
 import { fetchGetCalculateRate } from "@/utils/graphqlAPI";
-import { FormHelperText, TextField } from "@mui/material";
+import { Button, FormHelperText, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -86,12 +86,13 @@ const HomePage = () => {
         )}
 
         <div>
-          <button
+          <Button
+            variant="contained"
             className="bg-[#1976D2] text-lg px-10 py-3 rounded-md text-white mt-5"
             onClick={calculateRate}
           >
             Calculate
-          </button>
+          </Button>
         </div>
       </main>
       <footer>

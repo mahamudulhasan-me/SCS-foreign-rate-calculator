@@ -1,4 +1,5 @@
 import scsLogo from "@/assets/scsLogo.jpg";
+import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,7 +9,9 @@ const Header = () => {
       <Link href="/">
         <Image width={50} height={20} src={scsLogo} alt="SCS Logo" />
       </Link>
-      <button className="my-btn">Calculate</button>
+      <Button variant="contained" className="my-btn">
+        Calculate
+      </Button>
     </div>
   );
 };
