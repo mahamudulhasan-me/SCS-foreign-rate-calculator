@@ -7,6 +7,8 @@ import fetchRates from "@/utils/getRate";
 import { Button } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+// import { ScaleLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 import taka from "../assets/taka.png";
 
 const Rates = ({ initialRates }) => {
@@ -18,36 +20,6 @@ const Rates = ({ initialRates }) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true); // State to show loading
   const [activeOnChangeResult, setActiveOnChangeResult] = useState(false);
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    // Fetch rates based on form input values
-    const variablesData = {
-      country,
-      service,
-      carrier,
-      weight: parseFloat(weight),
-    };
-
-    try {
-      const fetchedRates = await fetchRates(variablesData);
-
-      // Check if the response is null or empty
-      if (fetchedRates) {
-        setRates(fetchedRates);
-        setError("");
-      } else {
-        setError("Service Not Available");
-        setRates(initialRates);
-      }
-    } catch (error) {
-      setError("Service Not Available");
-      setRates(initialRates);
-    } finally {
-      setLoading(false); // Set loading to false after fetch completes (either success or error)
-    }
-    setActiveOnChangeResult(true);
-  };
 
   const fetchRatesAndUpdateState = async () => {
     // Fetch rates based on form input values
@@ -82,10 +54,28 @@ const Rates = ({ initialRates }) => {
     }
   };
 
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (country && service && carrier && weight) {
+      if (weight < 0) {
+        setWeight(0);
+        alert("Weight must be greater than 0");
+        return;
+      }
+      fetchRatesAndUpdateState();
+      setActiveOnChangeResult(true);
+    } else {
+      alert("Please fill all the fields");
+    }
+  };
   // useEffect to fetch rates whenever input values change
   useEffect(() => {
     if (activeOnChangeResult) {
-      fetchRatesAndUpdateState();
+      if (weight < 0) {
+        return alert("Weight must be greater than 0");
+      } else {
+        fetchRatesAndUpdateState();
+      }
     }
     setLoading(activeOnChangeResult);
   }, [country, service, carrier, weight]);
@@ -100,7 +90,7 @@ const Rates = ({ initialRates }) => {
           <CountryInput setCountry={setCountry} />
           <ServiceInput setService={setService} />
           <CarriersInput setCarrier={setCarrier} />
-          <WeightInput setWeight={setWeight} />
+          <WeightInput weight={weight} setWeight={setWeight} />
         </div>
         <div className="grid grid-cols-2 justify-center items-center bg-[#E3F2FC] rounded-md w-fit mx-auto p-4 mt-20 gap-5">
           <Button
@@ -109,21 +99,34 @@ const Rates = ({ initialRates }) => {
           >
             Calculate
           </Button>
-          {loading ? (
-            <span>Loading...</span>
+
+          {/* {loading ? (
+            <p>
+              <PulseLoader color="#36d7b7" />
+            </p>
           ) : error ? (
             <span className="text-sm text-rose-600">{error}</span>
-          ) : (
-            <>
+          ) : ( */}
+          <>
+            {error ? (
+              <span className="text-sm text-rose-600">{error}</span>
+            ) : (
               <div className="flex items-center">
                 <Image src={taka} alt="taka" width={20} height={20}></Image>
 
-                <span className="font-bold text-[#08919E] text-2xl">
-                  {rates}
-                </span>
+                {loading ? (
+                  <p>
+                    <PulseLoader color="#36d7b7" size={10} />
+                  </p>
+                ) : (
+                  <span className="font-bold text-[#08919E] text-2xl">
+                    {rates}
+                  </span>
+                )}
               </div>
-            </>
-          )}
+            )}
+          </>
+          {/* )} */}
         </div>
       </form>
     </div>
