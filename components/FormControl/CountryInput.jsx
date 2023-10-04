@@ -14,7 +14,7 @@ const GET_COUNTRIES = gql`
   }
 `;
 
-const CountryInput = ({ refetch }) => {
+const CountryInput = ({ setCountry }) => {
   const [inputValue, setInputValue] = useState("");
   const [showList, setShowList] = useState(true);
   const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
@@ -23,7 +23,9 @@ const CountryInput = ({ refetch }) => {
   const listRef = useRef(null);
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    const country = e.target.value;
+    setInputValue(country);
+    setCountry(country);
     setShowList(true);
     setSelectedItemIndex(-1);
   };
@@ -48,6 +50,7 @@ const CountryInput = ({ refetch }) => {
 
   const handleListItemClick = (countryName) => {
     setInputValue(countryName);
+    setCountry(countryName);
     setShowList(false);
   };
 

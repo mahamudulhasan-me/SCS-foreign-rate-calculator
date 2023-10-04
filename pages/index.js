@@ -1,6 +1,6 @@
-import FormControl from "@/components/FormControl/FormControl";
 import Header from "@/components/Header";
 import { Inter } from "next/font/google";
+import Rates from "./rate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,7 +9,7 @@ export default function Home() {
     <main className={inter.className}>
       <Header />
 
-      <FormControl />
+      <Rates />
     </main>
   );
 }
