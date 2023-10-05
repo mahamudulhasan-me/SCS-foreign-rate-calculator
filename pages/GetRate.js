@@ -47,7 +47,7 @@ const GetRate = ({ initialRates }) => {
       setError(
         error.message == "Response not successful: Received status code 400"
           ? setRates(0)
-          : setLoading(true)
+          : setError("Service Not Available")
       );
 
       setRates(initialRates);
@@ -60,7 +60,6 @@ const GetRate = ({ initialRates }) => {
     e.preventDefault();
     if (country && service && carrier && weight) {
       if (weight < 0) {
-        setWeight(0);
         toast.warning("Weight must be greater than 0");
         return;
       }
@@ -70,6 +69,7 @@ const GetRate = ({ initialRates }) => {
       toast.warning("Please fill all the fields");
     }
   };
+
   // useEffect to fetch rates whenever input values change
   useEffect(() => {
     if (activeOnChangeResult) {
@@ -82,7 +82,7 @@ const GetRate = ({ initialRates }) => {
     setLoading(activeOnChangeResult);
   }, [country, service, carrier, weight]);
   return (
-    <div className="md:px-[10%] px-[5%] h-[calc(100vh-4.2rem)] z-20 mx-auto pt-10 text-gray-800">
+    <div className="md:px-[10%] px-[5%] h-[calc(100vh-5.5rem)] z-20 mx-auto pt-10 text-gray-800">
       <h2 className="text-2xl font-semibold text-slate-800 my-4 ">
         International Coverage
       </h2>
@@ -92,9 +92,11 @@ const GetRate = ({ initialRates }) => {
           <CountryInput setCountry={setCountry} />
           <ServiceInput setService={setService} />
           <CarriersInput setCarrier={setCarrier} />
-          <WeightInput weight={weight} setWeight={setWeight} />
+          <WeightInput setWeight={setWeight} />
         </div>
-        <div className="flex lg:w-1/3 md:w-1/2 w-full h-28 items-center bg-[#E3F2FC] rounded-md  mx-auto p-4 mt-20 gap-5">
+
+        {/* calculator rate show section  */}
+        <div className="flex lg:w-1/3 md:w-1/2 w-full h-28 items-center bg-[#E3F2FC] rounded-md  mx-auto p-4 lg:mt-20 mt-12 gap-5">
           <Button
             type="submit"
             className="bg-[#0C4A9A] hover:bg-[#3C74BD] text-white font-semibold py-2 px-4"
@@ -132,7 +134,7 @@ const GetRate = ({ initialRates }) => {
 };
 export async function getServerSideProps() {
   const variablesData = {
-    country: "", // initial values for your input fields
+    country: "", // initial values for input fields
     service: "",
     carrier: "",
     weight: 0,

@@ -21,7 +21,6 @@ const ServiceInput = ({ setService }) => {
     <FormControl>
       <InputLabel size="small">Service</InputLabel>
       <Select
-        required
         name="service"
         label="Service"
         size="small"
