@@ -8,7 +8,9 @@ import { Button } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 // import { ScaleLoader } from "react-spinners";
+import { FaChevronCircleRight } from "react-icons/fa";
 import { PulseLoader } from "react-spinners";
+import { toast } from "react-toastify";
 import taka from "../assets/taka.png";
 
 const Rates = ({ initialRates }) => {
@@ -59,20 +61,20 @@ const Rates = ({ initialRates }) => {
     if (country && service && carrier && weight) {
       if (weight < 0) {
         setWeight(0);
-        alert("Weight must be greater than 0");
+        toast.warning("Weight must be greater than 0");
         return;
       }
       fetchRatesAndUpdateState();
       setActiveOnChangeResult(true);
     } else {
-      alert("Please fill all the fields");
+      toast.warning("Please fill all the fields");
     }
   };
   // useEffect to fetch rates whenever input values change
   useEffect(() => {
     if (activeOnChangeResult) {
       if (weight < 0) {
-        return alert("Weight must be greater than 0");
+        return toast.warning("Weight must be greater than 0");
       } else {
         fetchRatesAndUpdateState();
       }
@@ -92,26 +94,19 @@ const Rates = ({ initialRates }) => {
           <CarriersInput setCarrier={setCarrier} />
           <WeightInput weight={weight} setWeight={setWeight} />
         </div>
-        <div className="grid grid-cols-2 justify-center items-center bg-[#E3F2FC] rounded-md w-fit mx-auto p-4 mt-20 gap-5">
+        <div className="flex w-1/3 h-28   items-center bg-[#E3F2FC] rounded-md  mx-auto p-4 mt-20 gap-5">
           <Button
             type="submit"
             className="bg-[#0C4A9A] hover:bg-[#3C74BD] text-white font-semibold py-2 px-4"
           >
-            Calculate
+            Get Rate
           </Button>
 
-          {/* {loading ? (
-            <p>
-              <PulseLoader color="#36d7b7" />
-            </p>
-          ) : error ? (
-            <span className="text-sm text-rose-600">{error}</span>
-          ) : ( */}
-          <>
+          <div>
             {error ? (
               <span className="text-sm text-rose-600">{error}</span>
             ) : (
-              <div className="flex items-center">
+              <div className="flex items-center h-10">
                 <Image src={taka} alt="taka" width={20} height={20}></Image>
 
                 {loading ? (
@@ -120,13 +115,16 @@ const Rates = ({ initialRates }) => {
                   </p>
                 ) : (
                   <span className="font-bold text-[#08919E] text-2xl">
-                    {rates}
+                    {rates || 0}
                   </span>
                 )}
               </div>
             )}
-          </>
-          {/* )} */}
+            <div className="flex h-5 items-center gap-3 mt-4 text-gray-700">
+              <p>View Details</p>{" "}
+              <FaChevronCircleRight size={25} color="#08919E" />
+            </div>
+          </div>
         </div>
       </form>
     </div>

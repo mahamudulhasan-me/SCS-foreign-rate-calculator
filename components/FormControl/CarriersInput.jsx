@@ -21,7 +21,7 @@ const CarriersInput = ({ setCarrier }) => {
     <FormControl>
       <InputLabel size="small">Carrier</InputLabel>
       <Select
-        required
+       
         name="carrier"
         label="Carrier"
         size="small"

@@ -42,6 +42,7 @@ const CountryInput = ({ setCountry }) => {
         prevIndex > 0 ? prevIndex - 1 : prevIndex
       );
     } else if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission when Enter key is pressed
       if (selectedItemIndex !== -1) {
         handleListItemClick(filteredCountries[selectedItemIndex].name);
       }
@@ -65,7 +66,7 @@ const CountryInput = ({ setCountry }) => {
   return (
     <div className="relative">
       <TextField
-        required
+        fullWidth
         name="country"
         label="Country"
         size="small"
