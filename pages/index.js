@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Rates from "./rate";
+import GetRate from "./GetRate";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +11,7 @@ export default function Home() {
     <main className={inter.className}>
       <ToastContainer position="bottom-left" autoClose={5000} />
       <Header />
-      <Rates />
+      <GetRate />
     </main>
   );
 }

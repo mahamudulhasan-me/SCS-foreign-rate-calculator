@@ -13,7 +13,7 @@ import { PulseLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import taka from "../assets/taka.png";
 
-const Rates = ({ initialRates }) => {
+const GetRate = ({ initialRates }) => {
   const [country, setCountry] = useState("");
   const [service, setService] = useState("");
   const [carrier, setCarrier] = useState("");
@@ -74,7 +74,7 @@ const Rates = ({ initialRates }) => {
   useEffect(() => {
     if (activeOnChangeResult) {
       if (weight < 0) {
-        return toast.warning("Weight must be greater than 0");
+        toast.warning("Weight must be greater than 0");
       } else {
         fetchRatesAndUpdateState();
       }
@@ -94,7 +94,7 @@ const Rates = ({ initialRates }) => {
           <CarriersInput setCarrier={setCarrier} />
           <WeightInput weight={weight} setWeight={setWeight} />
         </div>
-        <div className="flex w-1/3 h-28   items-center bg-[#E3F2FC] rounded-md  mx-auto p-4 mt-20 gap-5">
+        <div className="flex lg:w-1/3 md:w-1/2 w-full h-28 items-center bg-[#E3F2FC] rounded-md  mx-auto p-4 mt-20 gap-5">
           <Button
             type="submit"
             className="bg-[#0C4A9A] hover:bg-[#3C74BD] text-white font-semibold py-2 px-4"
@@ -146,4 +146,4 @@ export async function getServerSideProps() {
     },
   };
 }
-export default Rates;
+export default GetRate;

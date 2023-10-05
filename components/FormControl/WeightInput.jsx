@@ -3,8 +3,7 @@ import { InputAdornment, TextField } from "@mui/material";
 const WeightInput = ({ setWeight }) => {
   const handleInputChange = (event) => {
     const weight = event.target.value;
-    const numericWeight = weight.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    setWeight(numericWeight);
+    setWeight(weight);
   };
   return (
     <TextField

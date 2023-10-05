@@ -34,7 +34,7 @@ const CountryInput = ({ setCountry }) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedItemIndex((prevIndex) =>
-        prevIndex < filteredCountries.length - 1 ? prevIndex + 1 : prevIndex
+        prevIndex < filteredCountries?.length - 1 ? prevIndex + 1 : prevIndex
       );
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -77,10 +77,11 @@ const CountryInput = ({ setCountry }) => {
       {showList && inputValue && (
         <List
           ref={listRef}
-          className="absolute mt-2 max-h-screen border rounded-md shadow-lg bg-white scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 left-0 right-3"
+          className="absolute bg-white mt-2 max-h-screen border rounded-md shadow-lg  scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-200 left-0 right-3 z-50"
         >
           {filteredCountries?.slice(0, 8).map((country, index) => (
             <ListItem
+              className="bg-red"
               key={country.name}
               button
               selected={selectedItemIndex === index}
