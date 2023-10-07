@@ -72,14 +72,14 @@ const GetRate = ({ initialRates }) => {
 
   // useEffect to fetch rates whenever input values change
   useEffect(() => {
+    setLoading(activeOnChangeResult);
     if (activeOnChangeResult && country && service && carrier && weight) {
-      if (weight < 0) {
+      if (weight <= 0) {
         toast.warning("Weight must be greater than 0");
       } else {
         fetchRatesAndUpdateState();
       }
     }
-    setLoading(activeOnChangeResult);
   }, [country, service, carrier, weight]);
   return (
     <div className="md:px-[10%] px-[5%] h-[calc(100vh-5.5rem)] z-20 mx-auto pt-10 text-gray-800">
