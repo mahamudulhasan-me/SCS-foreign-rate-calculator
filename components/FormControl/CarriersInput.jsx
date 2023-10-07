@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-
-const { Select, FormControl, InputLabel, MenuItem } = require("@mui/material");
+import { Autocomplete, TextField } from "@mui/material";
 
 const GET_CARRIERS = gql`
   query Query {
@@ -13,27 +12,19 @@ const GET_CARRIERS = gql`
     }
   }
 `;
-const CarriersInput = ({ setCarrier }) => {
+
+const CarriersInput = ({ carrier, setCarrier }) => {
   const { loading, error, data } = useQuery(GET_CARRIERS);
   const carriers = data?.getCarriers.result.list;
 
   return (
-    <FormControl>
-      <InputLabel size="small">Carrier</InputLabel>
-      <Select
-       
-        name="carrier"
-        label="Carrier"
-        size="small"
-        onChange={(e) => setCarrier(e.target.value)}
-      >
-        {carriers?.map((carrier) => (
-          <MenuItem key={carrier.name} value={carrier.name}>
-            {carrier.name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <Autocomplete
+      size="small"
+      options={carriers?.map((option) => option.name) || []}
+      value={carrier} // Controlled component value
+      onChange={(event, value) => setCarrier(value)} // Handle selection change
+      renderInput={(params) => <TextField {...params} label="Carrier" />}
+    />
   );
 };
 

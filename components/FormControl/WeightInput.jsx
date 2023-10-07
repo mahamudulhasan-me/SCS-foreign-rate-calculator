@@ -11,6 +11,7 @@ const WeightInput = ({ setWeight }) => {
     setWeight(numericWeightValue);
   };
   return (
+    
     <TextField
       label="Weight"
       name="weight"

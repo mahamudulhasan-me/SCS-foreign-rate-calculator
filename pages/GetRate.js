@@ -72,7 +72,7 @@ const GetRate = ({ initialRates }) => {
 
   // useEffect to fetch rates whenever input values change
   useEffect(() => {
-    if (activeOnChangeResult) {
+    if (activeOnChangeResult && country && service && carrier && weight) {
       if (weight < 0) {
         toast.warning("Weight must be greater than 0");
       } else {
@@ -89,9 +89,9 @@ const GetRate = ({ initialRates }) => {
 
       <form onSubmit={handleFormSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-between items-start md:gap-10 gap-5">
-          <CountryInput setCountry={setCountry} />
-          <ServiceInput setService={setService} />
-          <CarriersInput setCarrier={setCarrier} />
+          <CountryInput country={country} setCountry={setCountry} />
+          <ServiceInput service={service} setService={setService} />
+          <CarriersInput carrier={carrier} setCarrier={setCarrier} />
           <WeightInput setWeight={setWeight} />
         </div>
 
